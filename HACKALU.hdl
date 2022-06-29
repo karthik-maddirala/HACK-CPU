@@ -1,0 +1,101 @@
+        CHIP HACKALU{
+
+        IN x[16],y[16],zx,nx,zy,ny,f,no;
+        OUT out[16],zr,ng;
+
+        PARTS:
+             //sixteen bit 2 to 1 mux which takes x and 0 as input 
+             sixteenbit2to1mux(x=x,y[0..15]=false,s=zx,z0=x0,z1=x1,z2=x2,z3=x3,z4=x4,z5=x5,z6=x6,
+                          z7=x7,z8=x8,z9=x9,z10=x10,z11=x11,z12=x12,z13=x13,z14=x14,z15=x15);
+             //sixteen bit 2 to 1 mux which takes y and 0 as input 
+             sixteenbit2to1mux(x=y,y[0..15]=false,s=zy,z0=y0,z1=y1,z2=y2,z3=y3,z4=y4,z5=y5,z6=y6,
+                          z7=y7,z8=y8,z9=y9,z10=y10,z11=y11,z12=y12,z13=y13,z14=y14,z15=y15);   
+              //xor between  x and nx
+              xorsixteen(x0=x0,x1=x1,x2=x2,x3=x3,x4=x4,x5=x5,x6=x6,x7=x7,x8=x8,x9=x9, x10=x10,x11=x11,x12=x12,x13=x13, x14=x14,x15=x15,
+                       y0=nx,y1=nx,y2=nx,y3=nx,y4=nx,y5=nx,y6=nx,y7=nx,y8=nx,y9=nx,y10=nx,y11=nx,y12=nx,y13=nx,y14=nx,y15=nx,z=p);
+              //xor between y and ny
+              xorsixteen(x0=y0,x1=y1,x2=y2,x3=y3,x4=y4,x5=y5,x6=y6,x7=y7,x8=y8,x9=y9,x10=y10,x11=y11,x12=y12,x13=y13,x14=y14,x15=y15,
+                      y0=ny,y1=ny,y2=ny,y3=ny,y4=ny,y5=ny,y6=ny,y7=ny,y8=ny,y9=ny,y10=ny,y11=ny,y12=ny,y13=ny,y14=ny,y15=ny,z=q);    
+
+
+             //now adding p0.....15 and q0.....15
+             sixteenbitadder(x=p,y=q,AS=false,s=porq);    sixteenbitand(x=p,y=q,z=pandq);
+            
+             sixteenbit2to1mux(x=pandq,y=porq,s=f,z0=r0,z1=r1,z2=r2,z3=r3,z4=r4,z5=r5,z6=r6,
+                          z7=r7,z8=r8,z9=r9,z10=r10,z11=r11,z12=r12,z13=r13,z14=r14,z15=r15);
+
+
+                          Xor(a=r0,b=no,out=out[0]);         
+                          Xor(a=r1,b=no,out=out[1]);         
+                          Xor(a=r2,b=no,out=out[2]);
+                          Xor(a=r3,b=no,out=out[3]);
+                          Xor(a=r4,b=no,out=out[4]);
+                          Xor(a=r5,b=no,out=out[5]);
+                          Xor(a=r6,b=no,out=out[6]);
+                          Xor(a=r7,b=no,out=out[7]);
+                          Xor(a=r8,b=no,out=out[8]);
+                          Xor(a=r9,b=no,out=out[9]);
+                          Xor(a=r10,b=no,out=out[10]);
+                          Xor(a=r11,b=no,out=out[11]);
+                          Xor(a=r12,b=no,out=out[12]);
+                          Xor(a=r13,b=no,out=out[13]);
+                          Xor(a=r14,b=no,out=out[14]);
+                          Xor(a=r15,b=no,out=out[15]);
+
+
+                          Xor(a=r0,b=no,out=outt0);         
+                          Xor(a=r1,b=no,out=outt1);         
+                          Xor(a=r2,b=no,out=outt2);
+                          Xor(a=r3,b=no,out=outt3);
+                          Xor(a=r4,b=no,out=outt4);
+                          Xor(a=r5,b=no,out=outt5);
+                          Xor(a=r6,b=no,out=outt6);
+                          Xor(a=r7,b=no,out=outt7);
+                          Xor(a=r8,b=no,out=outt8);
+                          Xor(a=r9,b=no,out=outt9);
+                          Xor(a=r10,b=no,out=outt10);
+                          Xor(a=r11,b=no,out=outt11);
+                          Xor(a=r12,b=no,out=outt12);
+                          Xor(a=r13,b=no,out=outt13);
+                          Xor(a=r14,b=no,out=outt14);
+                          Xor(a=r15,b=no,out=outt15);
+       
+       //ng is 1 if out<0 and 0 if out>0
+       And (a=outt15, b=outt15, out=ng);
+
+       //zr
+       Not(in=outt0,out=nout0);
+       Not(in=outt1,out=nout1);
+       Not(in=outt2,out=nout2);
+       Not(in=outt3,out=nout3);
+       Not(in=outt4,out=nout4);
+       Not(in=outt5,out=nout5);
+       Not(in=outt6,out=nout6);
+       Not(in=outt7,out=nout7);
+       Not(in=outt8,out=nout8);
+       Not(in=outt9,out=nout9);
+       Not(in=outt10,out=nout10);
+       Not(in=outt11,out=nout11);
+       Not(in=outt12,out=nout12);
+       Not(in=outt13,out=nout13);
+       Not(in=outt14,out=nout14);
+       Not(in=outt15,out=nout15);
+
+       And (a=nout0, b=nout1, out=oul0);
+        And (a=oul0, b=nout2, out=oul1);
+        And (a=oul1, b=nout3, out=oul2);
+        And (a=oul2, b=nout4, out=oul3);
+        And (a=oul3, b=nout5, out=oul4);
+        And (a=oul4, b=nout6, out=oul5);
+        And (a=oul5, b=nout7, out=oul6);
+        And (a=oul6, b=nout8, out=oul7);
+        And (a=oul7, b=nout9, out=oul8);
+        And (a=oul8, b=nout10, out=oul9);
+        And (a=oul9, b=nout11, out=oul10);
+        And (a=oul10, b=nout12, out=oul11);
+        And (a=oul11, b=nout13, out=oul12);
+        And (a=oul12, b=nout14, out=oul13);
+        And (a=oul13, b=nout15, out=zr);
+
+        
+ }

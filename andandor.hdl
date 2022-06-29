@@ -1,0 +1,13 @@
+CHIP andandor{
+
+    IN x, y, s;
+    OUT z;
+
+    PARTS:
+          Not(in=s,out=ns);
+
+        
+        And(a=ns,b=x,out=t0);
+        And(a=s,b=y,out=t1);
+        Or(a=t0,b=t1,out=z);
+}

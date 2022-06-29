@@ -1,0 +1,58 @@
+CHIP CPUhack {
+
+    IN  inM[16],instruction[16], reset;           
+    OUT outM[16], writeM, addressM[16],pc[16];
+    PARTS:
+
+	Not(in=instruction[15],out=nahi);
+
+	Mux16(a=outtM,b=instruction,sel=nahi,out=i);
+
+
+	Or(a=nahi,b=instruction[5],out=toA);
+
+	ARegister(in=i,load=toA,out=A,out[0..15]=addressM);
+
+	And(a=instruction[15],b=instruction[12],out=APM);
+
+	Mux16(a=A,b=inM,sel=APM,out=AM);
+
+	
+	HACKALU(y=AM,x=D,nx=instruction[10],zx=instruction[11],zy=instruction[9],ny=instruction[8],f=instruction[7],no=instruction[6],out=outtM,out=outM,zr=zr,ng=ng);
+
+	And(a=instruction[15],b=instruction[4],out=toD);
+
+	DRegister(in=outtM,load=toD,out=D);
+
+	And(a=instruction[15],b=instruction[3],out=writeM);
+
+	Not(in=ng,out=karth);
+
+	Not(in=zr,out=nzr);
+
+	And(a=instruction[15],b=instruction[2],out=jlt);
+
+	And(a=jlt,b=ng,out=land3);
+
+	And(a=instruction[15],b=instruction[0],out=jgt);
+
+	And(a=karth,b=nzr,out=karthi);
+
+	And(a=jgt,b=karthi,out=land1);
+
+	Or(a=land1,b=land2,out=landt);
+
+	And(a=instruction[15],b=instruction[1],out=jeq);
+
+	And(a=jeq,b=zr,out=land2);
+
+	Or(a=land3,b=landt,out=land);
+
+	PC(in=A,load=land,inc=true,reset=reset,out[0..15]=pc);
+
+}
+
+
+
+
+

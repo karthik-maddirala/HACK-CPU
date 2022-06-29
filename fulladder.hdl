@@ -1,0 +1,17 @@
+CHIP fulladder{
+
+    IN a, b, c;
+    OUT carry, sum;
+
+    //creating sum
+    PARTS:
+    Xor(a=a, b=b, out=pi);
+    Xor(a=pi, b=c, out=sum);
+    //results sum bit
+
+    //creating carry
+    And(a=a, b=b, out=gi);
+    And(a=pi, b=c, out=p2);
+    Or(a=gi, b=p2, out=carry);
+    //results c+1 carrier bit
+}

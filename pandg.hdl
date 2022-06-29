@@ -1,0 +1,19 @@
+CHIP pandg{
+
+    IN pi0, pi1, pi2, pi3, gi0, gi1, gi2, gi3 ;
+    OUT ph, gh;
+
+    PARTS:
+    And(a=pi0, b=pi1, out=t1);
+    And(a=pi2, b=pi3, out=t2);
+    And(a=t1, b=t2, out=ph);     //generating higher propagating terms
+
+    And (a=pi3, b=pi2, out=h1);
+    And (a=h1, b=pi1, out=h2);
+    And (a=h2, b=gi0, out=f1);
+    And (a=h1, b=gi1, out=f2);
+    And (a=pi3, b=gi2, out=f3);
+    Or (a=f1, b=f2, out=s1);
+    Or (a=s1, b=f3, out=s2);
+    Or (a=s2, b=gi3, out=gh);      //generating higher generate terms
+}

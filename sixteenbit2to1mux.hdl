@@ -1,0 +1,25 @@
+CHIP sixteenbit2to1mux{
+
+    IN x[16], y[16], s;
+    OUT z0,z1, z2, z3, z4, z5, z6, z7,z8,z9,z10,z11,z12,z13,z14,z15;
+
+
+    PARTS:
+        
+        andandor(x=x[0],y=y[0],s=s,z=z0);
+        andandor(x=x[1],y=y[1],s=s,z=z1);
+        andandor(x=x[2],y=y[2],s=s,z=z2);
+        andandor(x=x[3],y=y[3],s=s,z=z3);
+        andandor(x=x[4],y=y[4],s=s,z=z4);
+        andandor(x=x[5],y=y[5],s=s,z=z5);
+        andandor(x=x[6],y=y[6],s=s,z=z6);
+        andandor(x=x[7],y=y[7],s=s,z=z7);
+        andandor(x=x[8],y=y[8],s=s,z=z8);
+        andandor(x=x[9],y=y[9],s=s,z=z9);
+        andandor(x=x[10],y=y[10],s=s,z=z10);
+        andandor(x=x[11],y=y[11],s=s,z=z11);
+        andandor(x=x[12],y=y[12],s=s,z=z12);
+        andandor(x=x[13],y=y[13],s=s,z=z13);
+        andandor(x=x[14],y=y[14],s=s,z=z14);
+        andandor(x=x[15],y=y[15],s=s,z=z15);     
+}

@@ -1,0 +1,9 @@
+
+CHIP Increment {
+    IN in[16];
+    OUT out[16];
+
+    PARTS:
+
+    Add16(b[0]=true,a=in,out=out);
+}

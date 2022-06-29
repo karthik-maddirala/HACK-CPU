@@ -1,0 +1,24 @@
+CHIP xorsixteen{
+
+    IN  x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,y0,y1,y2,y3,y4,y5,y6,y7,y8,
+        y9,y10,y11,y12,y13,y14,y15;
+    OUT z[16];
+
+    PARTS:
+         Xor(a=x0,b=y0,out=z[0]);
+         Xor(a=x1,b=y1,out=z[1]);
+         Xor(a=x2,b=y2,out=z[2]);
+         Xor(a=x3,b=y3,out=z[3]);
+         Xor(a=x4,b=y4,out=z[4]);
+         Xor(a=x5,b=y5,out=z[5]);
+         Xor(a=x6,b=y6,out=z[6]);
+         Xor(a=x7,b=y7,out=z[7]);
+         Xor(a=x8,b=y8,out=z[8]);
+         Xor(a=x9,b=y9,out=z[9]);
+         Xor(a=x10,b=y10,out=z[10]);
+         Xor(a=x11,b=y11,out=z[11]);
+         Xor(a=x12,b=y12,out=z[12]);
+         Xor(a=x13,b=y13,out=z[13]);
+         Xor(a=x14,b=y14,out=z[14]);
+         Xor(a=x15,b=y15,out=z[15]);
+}

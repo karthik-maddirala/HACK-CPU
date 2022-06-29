@@ -1,0 +1,11 @@
+CHIP andandor1{
+
+    IN a,b,sel,nsel;
+    OUT z;
+
+    PARTS:
+
+    And(a=a,b=nsel,out=c0);
+	And(a=b,b=sel,out=d0);
+	Or(a=c0,b=d0,out=z);
+}

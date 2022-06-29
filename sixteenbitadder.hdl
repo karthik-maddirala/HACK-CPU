@@ -1,0 +1,134 @@
+CHIP sixteenbitadder{
+
+        IN x[16],y[16],AS;  //where AS is stroke bit which decides eigther to subtract or add
+        OUT  s[16];    //OF denotes the overflow bit
+
+        PARTS:
+        //first we have to change y according to the acompliment stroke bit
+        Xor(a=y[0], b=AS, out=Y0);
+        Xor(a=y[1], b=AS, out=Y1);
+        Xor(a=y[2], b=AS, out=Y2);
+        Xor(a=y[3], b=AS, out=Y3);
+        Xor(a=y[4], b=AS, out=Y4);
+        Xor(a=y[5], b=AS, out=Y5);
+        Xor(a=y[6], b=AS, out=Y6);
+        Xor(a=y[7], b=AS, out=Y7);
+        Xor(a=y[8], b=AS, out=Y8);
+        Xor(a=y[9], b=AS, out=Y9);
+        Xor(a=y[10], b=AS, out=Y10);
+        Xor(a=y[11], b=AS, out=Y11);
+        Xor(a=y[12], b=AS, out=Y12);
+        Xor(a=y[13], b=AS, out=Y13);
+        Xor(a=y[14], b=AS, out=Y14);
+        Xor(a=y[15], b=AS, out=Y15);
+        
+       Xor (a=x[0], b=Y0, out=p0);     // where pi is propagate term
+       Xor (a=x[1], b=Y1, out=p1);
+       Xor (a=x[2], b=Y2, out=p2);
+       Xor (a=x[3], b=Y3, out=p3);
+       Xor (a=x[4], b=Y4, out=p4);
+       Xor (a=x[5], b=Y5, out=p5);
+       Xor (a=x[6], b=Y6, out=p6);
+       Xor (a=x[7], b=Y7, out=p7);
+       Xor (a=x[8], b=Y8, out=p8);
+       Xor (a=x[9], b=Y9, out=p9);
+       Xor (a=x[10], b=Y10, out=p10);
+       Xor (a=x[11], b=Y11, out=p11);
+       Xor (a=x[12], b=Y12, out=p12);
+       Xor (a=x[13], b=Y13, out=p13);
+       Xor (a=x[14], b=Y14, out=p14);
+       Xor (a=x[15], b=Y15, out=p15);
+       
+       And (a=x[0], b=Y0, out=g0);         //here generate term generates
+       And (a=x[1], b=Y1, out=g1);
+       And (a=x[2], b=Y2, out=g2);
+       And (a=x[3], b=Y3, out=g3);
+       And (a=x[4], b=Y4, out=g4);
+       And (a=x[5], b=Y5, out=g5);
+       And (a=x[6], b=Y6, out=g6);
+       And (a=x[7], b=Y7, out=g7);
+       And (a=x[8], b=Y8, out=g8);
+       And (a=x[9], b=Y9, out=g9); 
+       And (a=x[10], b=Y10, out=g10);
+       And (a=x[11], b=Y11, out=g11);
+       And (a=x[12], b=Y12, out=g12);
+       And (a=x[13], b=Y13, out=g13);
+       And (a=x[14], b=Y14, out=g14);
+       And (a=x[15], b=Y15, out=g15);
+
+       pandg(pi0=p0, pi1=p1, pi2=p2, pi3=p3, gi0=g0, gi1=g1, gi2=g2, gi3=g3, ph=ph0,gh=gh0);
+       pandg(pi0=p4, pi1=p5, pi2=p6, pi3=p7, gi0=g4, gi1=g5, gi2=g6, gi3=g7, ph=ph1,gh=gh1);
+       pandg(pi0=p8, pi1=p9, pi2=p10, pi3=p11, gi0=g8, gi1=g9, gi2=g10, gi3=g11, ph=ph2,gh=gh2);
+       pandg(pi0=p12, pi1=p13, pi2=p14, pi3=p15, gi0=g12, gi1=g13, gi2=g14, gi3=g15, ph=ph3,gh=gh3);
+
+       
+       
+
+       Xor (a=p0, b=AS, out=s[0]);
+       And (a=p0, b=AS, out=z0);
+       Or (a=z0, b=g0, out=c1);
+
+       Xor (a=p1, b=c1, out=s[1]);
+       And (a=p1, b=c1, out=z1);
+       Or (a=z1, b=g1, out=c2);
+
+       Xor (a=p2, b=c2, out=s[2]);
+       And (a=p2, b=c2, out=z2);
+       Or (a=z2, b=g2, out=c3);
+
+       Xor (a=p3, b=c3, out=s[3]);
+       And (a=ph0, b=AS, out=z3);
+       Or (a=z3, b=gh0, out=c4);
+
+
+       Xor (a=p4, b=c4, out=s[4]);
+       And (a=p4, b=c4, out=z4);
+       Or (a=z4, b=g4, out=c5);
+
+       Xor (a=p5, b=c5, out=s[5]);
+       And (a=p5, b=c5, out=z5);
+       Or (a=z5, b=g5, out=c6);
+
+       Xor (a=p6, b=c6, out=s[6]);
+       And (a=p6, b=c6, out=z6);
+       Or (a=z6, b=g6, out=c7);
+
+       Xor (a=p7, b=c7, out=s[7]);
+       And (a=ph1, b=c4, out=z7);
+       Or (a=z7, b=gh1, out=c8);
+
+
+       Xor (a=p8, b=c8, out=s[8]);
+       And (a=p8, b=c8, out=z8);
+       Or (a=z8, b=g8, out=c9);
+
+       Xor (a=p9, b=c9, out=s[9]);
+       And (a=p9, b=c9, out=z9);
+       Or (a=z9, b=g9, out=c10);
+
+       Xor (a=p10, b=c10, out=s[10]);
+       And (a=p10, b=c10, out=z10);
+       Or (a=z10, b=g10, out=c11);
+
+       Xor (a=p11, b=c11, out=s[11]);
+       And (a=ph2, b=c8, out=z11);
+       Or (a=z11, b=gh2, out=c12);
+
+
+       Xor (a=p12, b=c12, out=s[12]);
+       And (a=p12, b=c12, out=z12);
+       Or (a=z12, b=g12, out=c13);
+
+       Xor (a=p13, b=c13, out=s[13]);
+       And (a=p13, b=c13, out=z13);
+       Or (a=z13, b=g13, out=c14);
+
+       Xor (a=p14, b=c14, out=s[14]);
+       And (a=p14, b=c14, out=z14); 
+       Or (a=z14, b=g14, out=c15);
+
+       Xor (a=p15, b=c15, out=s[15]);
+       And (a=ph3, b=c12, out=z15);
+       Or (a=z15, b=gh3, out=c16);
+
+}

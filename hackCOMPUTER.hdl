@@ -1,0 +1,18 @@
+CHIP hackCOMPUTER {
+
+    IN reseter;
+
+    PARTS:
+    
+    //PC used to represent the programme counter
+
+	PC( reset = reseter,inc=true, out = john);
+
+    ROMINSTRUCT(addressI = john,outI = instruct);
+
+    CPUhack(inM=k,instruction=instruct,reset=reseter,outM=hai,writeM=j,addressM=te);  //cpu  hack
+    
+    Memory(inM =hai, loadM = j, addressM = te, outM =k); //restoring the memory
+
+
+}
